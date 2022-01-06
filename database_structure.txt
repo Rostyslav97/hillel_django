@@ -1,0 +1,34 @@
+User:
+    /*id: uuid */
+    id: int
+    username: varchar
+    email: varchar
+    password: varchar
+    first_name: varchar
+    last_name: varchar
+    phone: int
+
+    created_at
+    updated_at
+
+
+Post:
+    id: int
+    title: varchar
+    content: text
+    image: varchar
+    user_id: int
+
+    created_at
+    updated_at
+
+
+Likes:
+    id: int
+    /*id: uuid */
+    post_id: int
+    user_id: int
+    status: bool = null
+
+    created_at
+    updated_at
