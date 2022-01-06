@@ -2,8 +2,8 @@
 
 {% block content %}
 
-    {% for post in object_list %}
-        <h4>{{ post.title }}</h4>
+    {% for post, likes, dislikes in results %}
+        <h4>{{ post.title }} | {{ likes }} | {{ dislikes }}</h4>
         <p>{{ post.content }}</p>
     {% endfor %}
 {% endblock content %}
