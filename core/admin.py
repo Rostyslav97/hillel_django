@@ -1,3 +1,20 @@
 from django.contrib import admin
+from .models import Post, Like
+from core import models
 
-# Register your models here.
+# @admin.register(Like)
+# class LikeAdmin(admin.ModelAdmin):
+#     pass
+
+# @admin.register(Post)
+# class PostAdmin(admin.ModelAdmin):
+#     pass
+
+class TabularInlineLike(admin.TabularInline):
+    model=models.Like
+
+class PostAdmin(admin.ModelAdmin):
+    inlines=[TabularInlineLike]
+    list_display = ("title", "user")
+
+admin.site.register(models.Post, PostAdmin)
