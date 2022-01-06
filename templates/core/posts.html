@@ -2,6 +2,8 @@
 
 {% block content %}
 
+    <a href="{% url 'create' %}"><h2>Create New Post</h2></a>
+
     {% for post, likes, dislikes in results %}
         <h4>{{ post.title }} | {{ likes }} | {{ dislikes }}</h4>
         <p>{{ post.content }}</p>

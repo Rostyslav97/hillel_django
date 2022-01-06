@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Like, Post
 
 
@@ -34,3 +34,8 @@ class PostsView(ListView):
 class PostDetailView(DetailView):
     queryset = Post.objects.all()
     template_name = 'core/post.html'
+
+class PostCreateView(CreateView):
+    model = Post
+    template_name = 'core/create.html'
+    fields = ['title', 'content', 'image', 'user']
