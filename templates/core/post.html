@@ -5,5 +5,6 @@
     <div class="post-entry">
     <h3>{{ object }}</h3>
     <p>{{ post.content }}</p>
+    <a href="{% url 'delete' post.pk %}"><h3>Delete Post</h3></a>
     </div>
 {% endblock content %}
