@@ -5,7 +5,7 @@
     <a href="{% url 'create' %}"><h2>Create New Post</h2></a>
 
     {% for post, likes, dislikes in results %}
-        <h4>{{ post.title }} | {{ likes }} | {{ dislikes }}</h4>
+        <h4><a href="/post/{{post.pk}}">{{ post.title }}</a> | {{ likes }} | {{ dislikes }}</h4>
         <p>{{ post.content }}</p>
     {% endfor %}
 {% endblock content %}

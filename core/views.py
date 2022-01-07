@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Like, Post
 
 
@@ -39,3 +39,8 @@ class PostCreateView(CreateView):
     model = Post
     template_name = 'core/create.html'
     fields = ['title', 'content', 'image', 'user']
+
+class PostUpdateView(UpdateView):
+    model = Post
+    template_name = 'core/update.html'
+    fields = ['title', 'content', 'image']
