@@ -10,6 +10,6 @@ class PostForm(forms.ModelForm):
         fields = ['title', 'content', 'image']
 
     def save(self):
-        user = User.objects.get(id=1)
+        user = User.objects.first()
         self.instance.user = user
         return super().save()
