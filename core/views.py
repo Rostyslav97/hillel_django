@@ -5,6 +5,8 @@ from .models import Post
 
 from .forms import PostForm
 
+from django.contrib.auth import get_user_model
+
 # class PostsView(TemplateView):
 #     template_name = "core/posts.html"
 
@@ -12,6 +14,8 @@ from .forms import PostForm
 #         ctx = super().get_context_data(**kwargs)
 #         ctx['posts'] = Post.objects.all()
 #         return ctx
+
+User = get_user_model()
 
 class PostsView(ListView):
     template_name = "core/posts.html"
@@ -29,9 +33,7 @@ class PostsView(ListView):
             ) 
             for p in posts
         ]
-
         ctx['results'] = results
-
         return ctx
 
 
@@ -40,6 +42,7 @@ class PostDetailView(DetailView):
     template_name = 'core/post.html' 
     pk_url_kwarg = 'id'
 
+
 class PostDeleteView(DeleteView):
     queryset = Post.objects.all()
     template_name = 'core/post_delete.html'
@@ -47,17 +50,19 @@ class PostDeleteView(DeleteView):
     # success_url = '/posts/'
     success_url = reverse_lazy("posts:list")
 
+
 class PostUpdateView(UpdateView):
     queryset = Post.objects.all()
     template_name = 'core/post_update.html'
     pk_url_kwarg = 'id'
     fields = ['title', 'content']
     success_url = reverse_lazy("posts:list")
+    
 
 class PostCreateView(CreateView):
     queryset = Post.objects.all()
     template_name = 'core/post_create.html'
-    # fields = ['title', 'content', 'user']
+    # fields = ['title', 'content', 'user'] ---> can be used only with model, when there is no form
     form_class = PostForm
     success_url = reverse_lazy("posts:list")
 

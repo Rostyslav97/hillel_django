@@ -7,4 +7,9 @@ User = get_user_model()
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'image']
+
+    def save(self):
+        user = User.objects.get(id=1)
+        self.instance.user = user
+        return super().save()
