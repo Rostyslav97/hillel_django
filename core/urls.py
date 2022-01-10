@@ -1,12 +1,16 @@
-from django.db.models.query import prefetch_related_objects
 from django.urls import path
+from .views import PostDeleteView, PostUpdateView, PostsView, PostDetailView, PostCreateView
 
-from .views import PostsView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
+app_name = "posts"
 
 urlpatterns = [
-    path("posts/", PostsView.as_view(), name = 'posts'),
-    path("post/<int:pk>/", PostDetailView.as_view(), name = 'post'),
-    path("post/create/", PostCreateView.as_view(), name='create'),
-    path("post/<int:pk>/update/", PostUpdateView.as_view(), name='update'),
-    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='delete'),
+    path("posts/", PostsView.as_view(), name ="list"),
+    path("post_detail/<int:id>/", PostDetailView.as_view(), name="detail"),
+    path("post_delete/<int:id>/", PostDeleteView.as_view(), name="delete"),
+    path("post_update/<int:id>/", PostUpdateView.as_view(), name="update"),
+    path("post_create/", PostCreateView.as_view(), name="create")
+
+    # path("post/create/", PostCreateView.as_view(), name='create'),
+    # path("post/<int:pk>/update/", PostUpdateView.as_view(), name='update'),
+    # path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='delete'),
 ]

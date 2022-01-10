@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-    <a href="{% url 'create' %}"><h2>Create New Post</h2></a>
-
+    <h2><a href="{% url 'posts:create' %}">Create Post</a></h2>
     {% for post, likes, dislikes in results %}
-        <h4><a href="/post/{{post.pk}}">{{ post.title }} | {{ likes }} | {{ dislikes }}</a></h4>
+    <h4><a href="{% url 'posts:detail' post.id %}">{{ post.title }}</a> | {{ likes }} | {{ dislikes }}</h4>
         <p>{{ post.content }}</p>
     {% endfor %}
+    
 {% endblock content %}

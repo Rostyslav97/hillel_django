@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <a href="{% url 'update' post.pk %}"><h2>Update Post</h2></a>
-    <div class="post-entry">
     <h3>{{ object }}</h3>
     <p>{{ post.content }}</p>
-    <a href="{% url 'delete' post.pk %}"><h3>Delete Post</h3></a>
-    </div>
-{% endblock content %}
+    <a href="{% url 'posts:delete' object.id %}">Delete Post</a>
+    <a href="{% url 'posts:update' object.id %}">Update Post</a>
+    
+{% endblock content %} 

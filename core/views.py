@@ -1,8 +1,9 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
-from django.views.generic.edit import DeleteView
-from .models import Like, Post
+from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView
 from django.urls import reverse_lazy
 
+from .models import Post
+
+from .forms import PostForm
 
 # class PostsView(TemplateView):
 #     template_name = "core/posts.html"
@@ -30,24 +31,48 @@ class PostsView(ListView):
         ]
 
         ctx['results'] = results
-        
+
         return ctx
+
 
 class PostDetailView(DetailView):
     queryset = Post.objects.all()
-    template_name = 'core/post.html'
-
-class PostCreateView(CreateView):
-    model = Post
-    template_name = 'core/create.html'
-    fields = ['title', 'content', 'image', 'user']
-
-class PostUpdateView(UpdateView):
-    model = Post
-    template_name = 'core/update.html'
-    fields = ['title', 'content', 'image']
+    template_name = 'core/post.html' 
+    pk_url_kwarg = 'id'
 
 class PostDeleteView(DeleteView):
-    model = Post
-    template_name = 'core/delete.html'
-    success_url = reverse_lazy('posts')
+    queryset = Post.objects.all()
+    template_name = 'core/post_delete.html'
+    pk_url_kwarg = 'id'
+    # success_url = '/posts/'
+    success_url = reverse_lazy("posts:list")
+
+class PostUpdateView(UpdateView):
+    queryset = Post.objects.all()
+    template_name = 'core/post_update.html'
+    pk_url_kwarg = 'id'
+    fields = ['title', 'content']
+    success_url = reverse_lazy("posts:list")
+
+class PostCreateView(CreateView):
+    queryset = Post.objects.all()
+    template_name = 'core/post_create.html'
+    # fields = ['title', 'content', 'user']
+    form_class = PostForm
+    success_url = reverse_lazy("posts:list")
+
+
+# class PostCreateView(CreateView):
+#     model = Post
+#     template_name = 'core/create.html'
+#     fields = ['title', 'content', 'image', 'user']
+
+# class PostUpdateView(UpdateView):
+#     model = Post
+#     template_name = 'core/update.html'
+#     fields = ['title', 'content', 'image']
+
+# class PostDeleteView(DeleteView):
+#     model = Post
+#     template_name = 'core/delete.html'
+#     success_url = reverse_lazy('posts')

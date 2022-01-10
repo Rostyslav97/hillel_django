@@ -1,7 +1,5 @@
 from django.db import models
 from django.conf import settings
-from django.urls import reverse
-
 
 class TimeStampMixin(models.Model):
 
@@ -22,8 +20,8 @@ class Post(TimeStampMixin):
         return f"{self.title}"
 
     
-    def get_absolute_url(self):
-        return reverse('post', args=[str(self.id)])
+    # def get_absolute_url(self):
+    #     return reverse('post', args=[str(self.id)])
 
 
 class Like(TimeStampMixin):
