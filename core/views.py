@@ -5,8 +5,6 @@ from .models import Post
 
 from .forms import PostForm
 
-from django.contrib.auth import get_user_model
-
 # class PostsView(TemplateView):
 #     template_name = "core/posts.html"
 
@@ -14,8 +12,6 @@ from django.contrib.auth import get_user_model
 #         ctx = super().get_context_data(**kwargs)
 #         ctx['posts'] = Post.objects.all()
 #         return ctx
-
-User = get_user_model()
 
 class PostsView(ListView):
     template_name = "core/posts.html"
@@ -65,7 +61,6 @@ class PostCreateView(CreateView):
     # fields = ['title', 'content', 'user'] ---> can be used only with model, when there is no form
     form_class = PostForm
     success_url = reverse_lazy("posts:list")
-
 
 # class PostCreateView(CreateView):
 #     model = Post
