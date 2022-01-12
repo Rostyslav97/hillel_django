@@ -1,5 +1,6 @@
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView
 from django.urls import reverse_lazy
+from django.contrib.auth import get_user_model
 
 from .models import Post
 
@@ -13,14 +14,17 @@ from .forms import PostForm
 #         ctx['posts'] = Post.objects.all()
 #         return ctx
 
+User = get_user_model()
+
+
 class PostsView(ListView):
     template_name = "core/posts.html"
-    queryset = Post.objects.all()
+    queryset = Post.objects.none()
 #   context_object_name = "posts"
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        posts = Post.objects.all()
+        posts = Post.objects.filter(user=self.request.user)
         results = [
             (
                 p, 
@@ -61,6 +65,10 @@ class PostCreateView(CreateView):
     # fields = ['title', 'content', 'user'] ---> can be used only with model, when there is no form
     form_class = PostForm
     success_url = reverse_lazy("posts:list")
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 # class PostCreateView(CreateView):
 #     model = Post
