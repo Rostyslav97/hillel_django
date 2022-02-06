@@ -1,3 +1,26 @@
-config - создан при помощи команды "python manage.py startproject core ." В нем файл "settings" - настройки, файл "urls" - urls, по которым мы можем переходить на нашем проекте. 
-core - создан при помощи команды "python manage.py startapp core". В нем файл "admin" - для регистрации моделей. Файл "models" - модели, которые передаем в базу данных. Файл "views" - файл, где мы размещаем логику нашего приложения. 
-db.sqlite3 - база данных 
+# Social Network Django Application
+
+# Setup
+
+## Mandatory steps
+1. Install Python3.9+
+2. Install Pipenv
+
+## Setup project
+Install environment
+```bash
+# Create virtual environment
+pipenv install
+#pipenv install --dev
+
+pipenv shell
+```
+
+Run django server
+```bash
+# Run migrations only on a project setup
+python src/manage.py migrate
+
+# Run server
+python src/manage.py runserver
+```
