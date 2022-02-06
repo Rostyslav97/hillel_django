@@ -7,16 +7,10 @@
             <h1>Social Network</h1>
         </header>
         <div>
-            {% if user.is_authenticated %}
-            <h4>Hello, {{ user.username }}</h4>
+            <h4>Hello, {{ user.email }}</h4>
             <a href="{% url 'logout' %}"><h4>Logout</h4></a>
             {% block content %}
             {% endblock content %}
-            {% else %}
-            <h2>Please Login</h2>
-            {% block anon_content %}
-            {% endblock anon_content %}
-            {% endif %}
         </div>
     </body>
 </html> 

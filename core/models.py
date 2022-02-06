@@ -1,13 +1,7 @@
 from django.db import models
 from django.conf import settings
+from shared.models import TimeStampMixin
 
-class TimeStampMixin(models.Model):
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
 
 class Post(TimeStampMixin):
     title = models.CharField(max_length=100, null=False, blank=False)

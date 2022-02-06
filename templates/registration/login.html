@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
-
-{% block content %}<h2>You have already logged in</h2>{% endblock content %}
-
-{% block anon_content %}
-
+{% block content %}
+{% if user.is_authenticated %}
+<h2>You have already logged in</h2>
+{% else %}
 <h1>Login</h1>
 <form action="" method="post">
     {% csrf_token %}
     {{ form }}
     <button type="submit">Login</button>
 </form>
-{% endblock anon_content %}
+{% endif %}
+{% endblock content %}

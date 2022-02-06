@@ -1,6 +1,7 @@
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
+from django.db.models.query import QuerySet
 
 from .models import Post
 
@@ -16,15 +17,25 @@ from .forms import PostForm
 
 User = get_user_model()
 
+def get_user_posts(user: User) -> QuerySet:
+    if not isinstance(user, User):
+            raise ValueError("Please login")
+
+    qs = Post.objects.filter(user=user)
+    return qs
+
 
 class PostsView(ListView):
     template_name = "core/posts.html"
-    queryset = Post.objects.none()
-#   context_object_name = "posts"
+    context_object_name = "posts"
+    # queryset = Post.objects.all()
+
+    def get_queryset(self):
+        return get_user_posts(self.request.user)
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        posts = Post.objects.filter(user=self.request.user)
+        posts = self.get_queryset()
         results = [
             (
                 p, 
@@ -42,6 +53,8 @@ class PostDetailView(DetailView):
     template_name = 'core/post.html' 
     pk_url_kwarg = 'id'
 
+    def get_queryset(self):
+        return get_user_posts(self.request.user)
 
 class PostDeleteView(DeleteView):
     queryset = Post.objects.all()
@@ -50,6 +63,9 @@ class PostDeleteView(DeleteView):
     # success_url = '/posts/'
     success_url = reverse_lazy("posts:list")
 
+    def get_queryset(self):
+        return get_user_posts(self.request.user)
+
 
 class PostUpdateView(UpdateView):
     queryset = Post.objects.all()
@@ -57,6 +73,9 @@ class PostUpdateView(UpdateView):
     pk_url_kwarg = 'id'
     fields = ['title', 'content']
     success_url = reverse_lazy("posts:list")
+
+    def get_queryset(self):
+        return get_user_posts(self.request.user)
     
 
 class PostCreateView(CreateView):

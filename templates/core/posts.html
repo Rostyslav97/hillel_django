@@ -3,8 +3,8 @@
 {% block content %}
     <h2><a href="{% url 'posts:create' %}">Create Post</a></h2>
     <h2>Posts:</h2>
-    {% for post, likes, dislikes in results %}
-    <h4><a href="{% url 'posts:detail' post.id %}">{{ post.title }}</a> | {{ likes }} | {{ dislikes }}</h4>
+    {% for post, likes , dislikes in results %}
+    <h4><a href="{% url 'posts:detail' post.id %}">{{ post.title }}</a> {{likes}} | {{dislikes}}</h4>
         <p>{{ post.content }}</p>
     {% endfor %}
     
